@@ -6,6 +6,11 @@
     display: block;
 }
 
+#new-game-button {
+    float: left;
+    display: block;
+}
+
 .select-colors span {
     display: block;
     float: left;
@@ -26,7 +31,7 @@
     float: left;
 }
 
-.game-board {
+#game-board {
     float: left;
     padding: 10px;
     clear: both;

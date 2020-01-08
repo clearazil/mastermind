@@ -18,41 +18,29 @@
             <span class="yellow" color="yellow">Geel</span>
         </div>
 
-        <div class="game-board grey">
+        <div id="game-row-prototype" class="hide">
             <div class="game-colors">
-                <span class="game-board-colors color-blank" color="blank"></span>
-                <span class="game-board-colors color-blank" color="blank"></span>
-                <span class="game-board-colors color-blank" color="blank"></span>
-                <span class="game-board-colors color-blank" color="blank"></span>
+                <span class="game-board-colors {color}" color="{color}"></span>
+                <span class="game-board-colors {color}" color="{color}"></span>
+                <span class="game-board-colors {color}" color="{color}"></span>
+                <span class="game-board-colors {color}" color="{color}"></span>
                 <div class="game-output">
                     <div>
-                        <span class="game-output-colors color-blank" color="blank"></span>
-                        <span class="game-output-colors color-blank" color="blank"></span>
+                        <span class="game-output-colors {color}" color="{color}"></span>
+                        <span class="game-output-colors {color}" color="{color}"></span>
                     </div>
                     <div>
-                        <span class="game-output-colors color-blank" color="blank"></span>
-                        <span class="game-output-colors color-blank" color="blank"></span>
+                        <span class="game-output-colors {color}" color="{color}"></span>
+                        <span class="game-output-colors {color}" color="{color}"></span>
                     </div>
                 </div>
                 <button>Bevestigen</button>
             </div>
-            <div class="game-colors">
-                <span class="game-board-colors dark-grey" color="dark-grey"></span>
-                <span class="game-board-colors dark-grey" color="dark-grey"></span>
-                <span class="game-board-colors dark-grey" color="dark-grey"></span>
-                <span class="game-board-colors dark-grey" color="dark-grey"></span>
-                <div class="game-output">
-                    <div>
-                        <span class="game-output-colors dark-grey" color="dark-grey"></span>
-                        <span class="game-output-colors dark-grey" color="dark-grey"></span>
-                    </div>
-                    <div>
-                        <span class="game-output-colors dark-grey" color="dark-grey"></span>
-                        <span class="game-output-colors dark-grey" color="dark-grey"></span>
-                    </div>
-                </div>
-            </div>
         </div>
+
+        <button id="new-game-button">Nieuw Spel</button>
+
+        <div id="game-board" class="grey hide"></div>
 
         <script src="main.js"></script>
     </body>
