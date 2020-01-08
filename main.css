@@ -1,0 +1,91 @@
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+.select-colors span {
+    display: block;
+    float: left;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    font-size: 20px;
+    line-height: 60px;
+    text-align: center;
+}
+
+.game-colors {
+    float: left;
+    clear: both;
+}
+.game-colors span {
+    padding: 10px;
+    float: left;
+}
+
+.game-board {
+    float: left;
+    padding: 10px;
+    clear: both;
+}
+
+.game-board-colors {
+    border-radius: 100px;
+    width: 30px;
+    height: 30px;
+}
+
+.game-output {
+    float: left;
+}
+
+.game-output-colors {
+    border-radius: 100px;
+    width: 15px;
+    height: 15px;
+}
+
+.blue {
+    background: blue;
+}
+
+.yellow {
+    background: yellow;
+}
+
+.purple {
+    background: purple;
+}
+
+.green {
+    background: green;
+}
+
+.orange {
+    background: orange;
+}
+
+.pink {
+    background: pink;
+}
+
+.grey {
+    background: grey;
+}
+
+.color-blank {
+    background: papayawhip;
+}
+
+.dark-grey {
+    background: darkgrey;
+}
+
+.white {
+    background: white;
+}
+
+
