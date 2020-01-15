@@ -42,35 +42,38 @@ export default class MastermindDom {
     
         gameBoard.setAttribute('class', classAttribute.replace('hide', 'show'));
 
-        this.addClickEvents();
+        this.addChangeColorEvent();
     }
 
-    addClickEvents() {
-        let currentRow = 1;
+    currentButton;
 
-        let row = document.querySelector('#row-id-' + currentRow);
-        let colorButtons = row.querySelectorAll('.game-board-colors');
+    addChangeColorEvent() {
+        let currentRow = document.querySelector('#row-id-1');
 
-        let currentButton = 'hey';
+        let colorButtons = currentRow.querySelectorAll('.game-board-colors');
 
         colorButtons.forEach((button) => {
             button.onclick = () => {
                 this._modal.open();
-                currentButton = button;
+                this.currentButton = button;
             };
         });
 
+        this.addConfirmNewColorEvent();
+    }
+
+    addConfirmNewColorEvent() {
         let selectColorButtons = document.querySelectorAll('.select-colors');
 
         selectColorButtons.forEach((button) => {
             button.onclick = () => {
-                let currentColor = currentButton.getAttribute('data-color');
+                let currentColor = this.currentButton.getAttribute('data-color');
                 let chosenColor = button.getAttribute('data-color');
 
-                let classAttribute = currentButton.getAttribute('class');
+                let classAttribute = this.currentButton.getAttribute('class');
 
-                currentButton.setAttribute('data-color', chosenColor);
-                currentButton.setAttribute('class', classAttribute.replace(currentColor, chosenColor));
+                this.currentButton.setAttribute('data-color', chosenColor);
+                this.currentButton.setAttribute('class', classAttribute.replace(currentColor, chosenColor));
 
                 this._modal.close();
             };
