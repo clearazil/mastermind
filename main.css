@@ -1,3 +1,4 @@
+/*======= Game Board ======= */
 .hide {
     display: none;
 }
@@ -11,15 +12,19 @@
     display: block;
 }
 
-.select-colors span {
+#select-colors span {
     display: block;
     float: left;
-    width: 60px;
-    height: 60px;
+    width: 15.8%;
+    height: 80px;
     border-radius: 50%;
     font-size: 20px;
-    line-height: 60px;
+    line-height: 80px;
     text-align: center;
+}
+
+#select-colors {
+    height: 80px;
 }
 
 .game-colors {
@@ -29,6 +34,13 @@
 .game-colors span {
     padding: 10px;
     float: left;
+}
+
+/** TODO: only do this for the current row */
+.game-colors span:hover,
+.game-colors span:focus {
+    text-decoration: none;
+    cursor: pointer;
 }
 
 #game-board {
@@ -93,4 +105,41 @@
     background: white;
 }
 
+/*======= Modal ======= */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content/Box */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%; /* Could be more or less, depending on screen size */
+  }
+  
+  /* The Close Button */
+  #modal-close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  #modal-close:hover,
+  #modal-close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
 
