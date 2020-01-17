@@ -1,14 +1,17 @@
 import MastermindDom from './mastermind-dom';
 
+/**
+ * Controls the Mastermind game mechanics
+ */
 export default class Mastermind {
-    constructor() {
-        this._dom = new MastermindDom;
-    }
+    _dom = new MastermindDom;
     currentRow;
 
+    /**
+     *
+     */
     createNewGame() {
         this._dom.createNewBoard();
         this.currentRow = 1;
     }
 }
-

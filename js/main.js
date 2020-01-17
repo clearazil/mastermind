@@ -1,15 +1,13 @@
 import Mastermind from './classes/mastermind';
 
-"use strict"
+'use strict';
 
-let newGameButton = document.querySelector('#new-game-button');
+const newGameButton = document.querySelector('#new-game-button');
 
-let mastermind = new Mastermind();
+const mastermind = new Mastermind();
 
 newGameButton.onclick = () => {
     mastermind.createNewGame();
-}
+};
 
 // choose color on click event
-
-
