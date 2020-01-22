@@ -11,3 +11,10 @@ newGameButton.onclick = () => {
 };
 
 // choose color on click event
+document.addEventListener('click', (event) => {
+    if (event.target && event.target.classList.contains(
+        'confirm-colors-button')
+    ) {
+        mastermind.chooseColors();
+    }
+});

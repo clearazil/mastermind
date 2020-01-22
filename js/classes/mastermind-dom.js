@@ -9,6 +9,29 @@ export default class MastermindDom {
         gameRow: document.querySelector('#game-row-prototype'),
         confirmButton: document.querySelector('#confirm-button-prototype'),
     };
+    confirmButton;
+    _currentRowId = 1;
+
+    /**
+     * @return {int}
+     */
+    get currentRowId() {
+        return this._currentRowId;
+    }
+
+    /**
+     * @param {int} rowId
+     */
+    set currentRowId(rowId) {
+        this._currentRowId = rowId;
+    }
+
+    /**
+     * @return {HTMLElement}
+     */
+    get currentRow() {
+        return document.querySelector('#row-id-' + this.currentRowId);
+    }
 
     /**
      * Create a new board
@@ -59,8 +82,11 @@ export default class MastermindDom {
         const firstRow = document.querySelector('#row-id-1');
 
         // clone the node to prevent removing the prototype
+        this.confirmButton = this.prototype.confirmButton.
+            firstElementChild.cloneNode(true);
+
         firstRow.appendChild(
-            this.prototype.confirmButton.firstElementChild.cloneNode(true),
+            this.confirmButton,
         );
 
         gameBoard.setAttribute('class', classAttribute.replace('hide', 'show'));
@@ -72,15 +98,21 @@ export default class MastermindDom {
      * Event for changing a color
      */
     addChangeColorEvent() {
-        const currentRow = document.querySelector('#row-id-1');
+        document.addEventListener('click', (event) => {
+            const button = event.target;
 
-        const colorButtons = currentRow.querySelectorAll('.game-board-colors');
+            if (button) {
+                const buttonRowId = button.
+                    parentElement.getAttribute('data-row-id');
 
-        colorButtons.forEach((button) => {
-            button.onclick = () => {
-                this._modal.open();
-                this.currentButton = button;
-            };
+                if (
+                    button.classList.contains('game-board-colors') &&
+                    parseInt(buttonRowId) === this.currentRowId
+                ) {
+                    this._modal.open();
+                    this.currentButton = event.target;
+                }
+            }
         });
     }
 
@@ -106,5 +138,62 @@ export default class MastermindDom {
                 this._modal.close();
             };
         });
+    }
+
+    /**
+     * @return {array} colors
+     */
+    getChosenColors() {
+        const rowColorElements = this.currentRow.
+            querySelectorAll('.game-board-colors');
+
+        const colors = [];
+
+        /** @param {HTMLElement} element */
+        rowColorElements.forEach((element) => {
+            colors.push(element.getAttribute('data-color'));
+        });
+
+        return colors;
+    }
+
+    /**
+     * @param {int} rowId
+     */
+    advanceToNextRow(rowId) {
+        this.currentRowId = rowId;
+
+        const colorButtons = this.currentRow.
+            querySelectorAll('.game-board-colors, .game-output-colors');
+
+        colorButtons.forEach((button) => {
+            const buttonClass = button.getAttribute('class');
+            const buttonColor = button.getAttribute('data-color');
+
+            button.setAttribute(
+                'class', buttonClass.replace(buttonColor, 'color-blank'),
+            );
+            button.setAttribute('data-color', 'color-blank');
+        });
+
+        this.currentRow.appendChild(
+            this.confirmButton,
+        );
+    }
+
+    /**
+     *
+     */
+    displayErrorMessage() {
+        console.log('error!!');
+        // TODO
+    }
+
+    /**
+     *
+     */
+    displayGameWonMessage() {
+        console.log('game won!');
+        // TODO
     }
 }
