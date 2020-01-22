@@ -7,7 +7,7 @@ export default class MastermindDom {
     _modal = new Modal();
     prototype = {
         gameRow: document.querySelector('#game-row-prototype'),
-        confirmButton: document.querySelector('#confirm-button-prototype')
+        confirmButton: document.querySelector('#confirm-button-prototype'),
     };
 
     /**
