@@ -11,10 +11,21 @@ export default class MastermindDom {
     };
 
     /**
-     * get the prototype html, set colors and replace the
-     * game board's html with what is created here
+     * Create a new board
      */
     createNewBoard() {
+        const html = this.generateHtml();
+        this.appendBoardHtml(html);
+
+        this.addChangeColorEvent();
+        this.addConfirmNewColorEvent();
+    }
+
+    /**
+     * get the prototype html, set colors
+     * @return {string} html
+     */
+    generateHtml() {
         let html = '';
         for (let i = 1; i <= 12; i++) {
             let color = 'dark-grey';
@@ -32,6 +43,14 @@ export default class MastermindDom {
             });
         }
 
+        return html;
+    }
+
+    /**
+     * Replace the board's html
+     * @param {string} html
+     */
+    appendBoardHtml(html) {
         const gameBoard = document.querySelector('#game-board');
         const classAttribute = gameBoard.getAttribute('class');
 
@@ -45,14 +64,12 @@ export default class MastermindDom {
         );
 
         gameBoard.setAttribute('class', classAttribute.replace('hide', 'show'));
-
-        this.addChangeColorEvent();
     }
 
     currentButton;
 
     /**
-     *
+     * Event for changing a color
      */
     addChangeColorEvent() {
         const currentRow = document.querySelector('#row-id-1');
@@ -65,12 +82,10 @@ export default class MastermindDom {
                 this.currentButton = button;
             };
         });
-
-        this.addConfirmNewColorEvent();
     }
 
     /**
-     *
+     * Event for confirming a new color
      */
     addConfirmNewColorEvent() {
         const selectColorButtons = document.querySelectorAll('.select-colors');
