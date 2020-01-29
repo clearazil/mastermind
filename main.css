@@ -65,6 +65,7 @@
     height: 15px;
 }
 
+/*======= Pickable colors ======= */
 .blue {
     background: blue;
 }
@@ -89,6 +90,16 @@
     background: pink;
 }
 
+/*======= Key peg colors ======= */
+.white {
+    background: white;
+}
+
+.red {
+    background: red;
+}
+
+/*======= Game board colors ======= */
 .grey {
     background: grey;
 }
@@ -101,9 +112,7 @@
     background: darkgrey;
 }
 
-.white {
-    background: white;
-}
+
 
 /*======= Modal ======= */
 .modal {
@@ -118,7 +127,7 @@
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
   }
-  
+
   /* Modal Content/Box */
   .modal-content {
     background-color: #fefefe;
@@ -127,7 +136,7 @@
     border: 1px solid #888;
     width: 30%; /* Could be more or less, depending on screen size */
   }
-  
+
   /* The Close Button */
   #modal-close {
     color: #aaa;
@@ -135,7 +144,7 @@
     font-size: 28px;
     font-weight: bold;
   }
-  
+
   #modal-close:hover,
   #modal-close:focus {
     color: black;

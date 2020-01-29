@@ -51,7 +51,8 @@ export default class Mastermind {
     }
 
     /**
-     *
+     * Action when the player confirms
+     * choosing a row of colors
      */
     chooseColors() {
         const colors = this.dom.getChosenColors();
@@ -62,11 +63,23 @@ export default class Mastermind {
             } else {
                 this.currentRowId++;
 
+                this.dom.displayKeyPegs(this.getKeyPegHintColors());
                 this.dom.advanceToNextRow(this.currentRowId);
             }
         } else {
             this.dom.displayErrorMessage();
         }
+    }
+
+    /**
+     * @return {object}
+     */
+    getKeyPegHintColors() {
+        // TODO
+        return {
+            red: 1,
+            white: 1,
+        };
     }
 
     /**
@@ -79,6 +92,10 @@ export default class Mastermind {
     }
 
     /**
+     * Determine if the row of colors does not
+     * include any color other than blue, green,
+     * purple, pink, orange or yellow; aka: one
+     * of the colors is not blank
      * @param {array} colors
      * @return {bool}
      */

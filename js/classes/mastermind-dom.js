@@ -124,16 +124,8 @@ export default class MastermindDom {
 
         selectColorButtons.forEach((button) => {
             button.onclick = () => {
-                const currentColor = this.currentButton
-                    .getAttribute('data-color');
                 const chosenColor = button.getAttribute('data-color');
-
-                const classAttribute = this.currentButton.getAttribute('class');
-
-                this.currentButton.setAttribute('data-color', chosenColor);
-                this.currentButton.setAttribute(
-                    'class', classAttribute.replace(currentColor, chosenColor),
-                );
+                this.changeElementColor(this.currentButton, chosenColor);
 
                 this._modal.close();
             };
@@ -167,18 +159,46 @@ export default class MastermindDom {
             querySelectorAll('.game-board-colors, .game-output-colors');
 
         colorButtons.forEach((button) => {
-            const buttonClass = button.getAttribute('class');
-            const buttonColor = button.getAttribute('data-color');
-
-            button.setAttribute(
-                'class', buttonClass.replace(buttonColor, 'color-blank'),
-            );
-            button.setAttribute('data-color', 'color-blank');
+            this.changeElementColor(button, 'color-blank');
         });
 
         this.currentRow.appendChild(
             this.confirmButton,
         );
+    }
+
+    /**
+     * @param {object} pegColors
+     * @property {int} [red] red pegs to display
+     * @property {int} [white] white pegs to display
+     */
+    displayKeyPegs(pegColors) {
+        const outputElements = this.currentRow.
+            querySelectorAll('.game-output-colors');
+
+        outputElements.forEach((element) => {
+            if (pegColors.red > 0) {
+                this.changeElementColor(element, 'red');
+                pegColors.red--;
+            } else if (pegColors.white > 0) {
+                this.changeElementColor(element, 'white');
+                pegColors.white--;
+            }
+        });
+    }
+
+    /**
+     * @param {HTMLElement} element
+     * @param {string} newColor
+     */
+    changeElementColor(element, newColor) {
+        const elementClass = element.getAttribute('class');
+        const elementColor = element.getAttribute('data-color');
+
+        element.setAttribute(
+            'class', elementClass.replace(elementColor, newColor),
+        );
+        element.setAttribute('data-color', newColor);
     }
 
     /**
