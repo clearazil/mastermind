@@ -101,7 +101,7 @@ export default class MastermindDom {
         document.addEventListener('click', (event) => {
             const button = event.target;
 
-            if (button) {
+            if (button && button.parentElement) {
                 const buttonRowId = button.
                     parentElement.getAttribute('data-row-id');
 
