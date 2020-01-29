@@ -4,7 +4,7 @@ import MastermindDom from './mastermind-dom';
  * Controls the Mastermind game mechanics
  */
 export default class Mastermind {
-    _dom = new MastermindDom;
+    _dom;
     _currentRowId;
     _colorsToGuess;
 
@@ -13,6 +13,13 @@ export default class Mastermind {
      */
     get dom() {
         return this._dom;
+    }
+
+    /**
+     * @param {MastermindDom} dom
+     */
+    set dom(dom) {
+        this._dom = dom;
     }
 
     /**
@@ -76,7 +83,8 @@ export default class Mastermind {
      *
      */
     createNewGame() {
-        this._dom.createNewBoard();
+        this.dom = new MastermindDom;
+        this.dom.createNewBoard();
         this.generateColorCode();
         this.currentRowId = 1;
     }
