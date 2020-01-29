@@ -37,13 +37,11 @@
         <div id="game-board" class="grey hide"></div>
 
 
-        <div id="modal" class="modal">
-
-
+        <div id="choose-color" class="modal">
             <!-- Modal content -->
             <div class="modal-content">
-                <span id="modal-close">&times;</span>
-                <p>Some text in the Modal..</p>
+                <span class="modal-close">&times;</span>
+                <p>Kies een kleur...</p>
                 <div id="select-colors">
                     <span class="blue select-colors" data-color="blue">Blauw</span>
                     <span class="green select-colors" data-color="green">Groen</span>
@@ -53,8 +51,44 @@
                     <span class="yellow select-colors" data-color="yellow">Geel</span>
                 </div>
             </div>
-          
-          </div>
+        </div>
+
+
+        <div id="incorrect-colors" class="modal">
+            <!-- Incorrect colors modal -->
+            <div class="modal-content">
+                <span class="modal-close">&times;</span>
+                <h1>Fout</h1>
+                <p>Een van de kleuren is leeg gelaten!</p>
+                <button class="modal-ok">Ok</button>
+            </div>
+        </div>
+
+        <div id="game-lost" class="modal">
+            <!-- Game lost modal -->
+            <div class="modal-content">
+                <span class="modal-close">&times;</span>
+                <h1>Helaas</h1>
+                <p>Je hebt het spel verloren. De correcte code was:</p>
+                <div id="code-colors">
+                    <span class="color-blank code-colors" data-color="color-blank"></span>
+                    <span class="color-blank code-colors" data-color="color-blank"></span>
+                    <span class="color-blank code-colors" data-color="color-blank"></span>
+                    <span class="color-blank code-colors" data-color="color-blank"></span>
+                </div>
+                <button class="modal-ok">Ok</button>
+            </div>
+        </div>
+
+        <div id="game-won" class="modal">
+            <!-- Game won modal -->
+            <div class="modal-content">
+                <span class="modal-close">&times;</span>
+                <h1>Gefeliciteerd</h1>
+                <p>Je hebt het spel gewonnen!</p>
+                <button class="modal-ok">Ok</button>
+            </div>
+        </div>
         <script src="js/main.js" type="module"></script>
     </body>
-</html> 
+</html>

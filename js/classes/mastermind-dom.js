@@ -4,13 +4,73 @@ import Modal from './modal';
  * Displays the interface elements of the game
  */
 export default class MastermindDom {
-    _modal = new Modal();
+    _chooseColorModal = new Modal('#choose-color');
+    _incorrectColorsModal = new Modal('#incorrect-colors');
+    _gameLostModal = new Modal('#game-lost');
+    _gameWonModal = new Modal('#game-won');
+
     prototype = {
         gameRow: document.querySelector('#game-row-prototype'),
         confirmButton: document.querySelector('#confirm-button-prototype'),
     };
-    confirmButton;
+    _confirmButton;
     _currentRowId = 1;
+
+    /**
+     * @return {Modal}
+     */
+    get chooseColorModal() {
+        return this._chooseColorModal;
+    }
+
+    /**
+     * @param {Modal} modal
+     */
+    set chooseColorModal(modal) {
+        this._chooseColorModal = modal;
+    }
+
+    /**
+     * @return {Modal}
+     */
+    get incorrectColorsModal() {
+        return this._incorrectColorsModal;
+    }
+
+    /**
+     * @param {Modal} modal
+     */
+    set incorrectColorsModal(modal) {
+        this._incorrectColorsModal = modal;
+    }
+
+    /**
+     * @return {Modal}
+     */
+    get gameLostModal() {
+        return this._gameLostModal;
+    }
+
+    /**
+     * @param {Modal} modal
+     */
+    set gameLostModal(modal) {
+        this._gameLostModal = modal;
+    }
+
+    /**
+     * @return {Modal}
+     */
+    get gameWonModal() {
+        return this._gameWonModal;
+    }
+
+    /**
+     * @param {Modal} modal
+     */
+    set gameWonModal(modal) {
+        this._gameWonModal = modal;
+    }
 
     /**
      * @return {int}
@@ -34,10 +94,25 @@ export default class MastermindDom {
     }
 
     /**
-     * Create a new board
+     * @return {HTMLElement}
      */
-    createNewBoard() {
-        const html = this.generateHtml();
+    get confirmButton() {
+        return this._confirmButton;
+    }
+
+    /**
+     * @param {HTMLElement} confirmButton
+     */
+    set confirmButton(confirmButton) {
+        this._confirmButton = confirmButton;
+    }
+
+    /**
+     * Create a new board
+     * @param {int} maxRows
+     */
+    createNewBoard(maxRows) {
+        const html = this.generateHtml(maxRows);
         this.appendBoardHtml(html);
 
         this.addChangeColorEvent();
@@ -46,11 +121,12 @@ export default class MastermindDom {
 
     /**
      * get the prototype html, set colors
+     * @param {int} maxRows
      * @return {string} html
      */
-    generateHtml() {
+    generateHtml(maxRows) {
         let html = '';
-        for (let i = 1; i <= 12; i++) {
+        for (let i = 1; i <= maxRows; i++) {
             let color = 'dark-grey';
             if (i === 1) {
                 color = 'color-blank';
@@ -109,7 +185,7 @@ export default class MastermindDom {
                     button.classList.contains('game-board-colors') &&
                     parseInt(buttonRowId) === this.currentRowId
                 ) {
-                    this._modal.open();
+                    this.chooseColorModal.open();
                     this.currentButton = event.target;
                 }
             }
@@ -127,7 +203,7 @@ export default class MastermindDom {
                 const chosenColor = button.getAttribute('data-color');
                 this.changeElementColor(this.currentButton, chosenColor);
 
-                this._modal.close();
+                this.chooseColorModal.close();
             };
         });
     }
@@ -205,15 +281,33 @@ export default class MastermindDom {
      *
      */
     displayErrorMessage() {
-        console.log('error!!');
-        // TODO
+        this.incorrectColorsModal.open();
+    }
+
+    /**
+     * @param {array} colorCode
+     */
+    displayGameLostMessage(colorCode) {
+        const codeColors = document.querySelectorAll('.code-colors');
+
+        for (let i = 0; i < colorCode.length; i++) {
+            this.changeElementColor(codeColors[i], colorCode[i]);
+        }
+
+        this.gameLostModal.open();
     }
 
     /**
      *
      */
     displayGameWonMessage() {
-        console.log('game won!');
-        // TODO
+        this.gameWonModal.open();
+    }
+
+    /**
+     * Remove the confirm button
+     */
+    removeConfirmButton() {
+        this.confirmButton.remove();
     }
 }

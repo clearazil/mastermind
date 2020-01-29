@@ -37,6 +37,13 @@ export default class Mastermind {
     }
 
     /**
+     * @return {int}
+     */
+    get maxRows() {
+        return 12;
+    }
+
+    /**
      * @param {int} rowId
      */
     set currentRowId(rowId) {
@@ -84,7 +91,7 @@ export default class Mastermind {
      */
     createNewGame() {
         this.dom = new MastermindDom;
-        this.dom.createNewBoard();
+        this.dom.createNewBoard(this.maxRows);
         this.generateColorCode();
         this.currentRowId = 1;
     }
@@ -100,7 +107,11 @@ export default class Mastermind {
             this.dom.displayKeyPegs(this.getKeyPegHintColors(colors));
 
             if (this.isCorrectGuess(colors)) {
+                this.dom.removeConfirmButton();
                 this.dom.displayGameWonMessage();
+            } else if (this.currentRowId === this.maxRows) {
+                this.dom.removeConfirmButton();
+                this.dom.displayGameLostMessage(this.codeToGuess);
             } else {
                 this.currentRowId++;
                 this.dom.advanceToNextRow(this.currentRowId);
