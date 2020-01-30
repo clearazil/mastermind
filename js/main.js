@@ -1,4 +1,4 @@
-import Mastermind from './classes/mastermind';
+import Mastermind from './classes/mastermind.js';
 
 'use strict';
 

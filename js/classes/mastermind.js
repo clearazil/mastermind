@@ -1,4 +1,4 @@
-import MastermindDom from './mastermind-dom';
+import MastermindDom from './mastermind-dom.js';
 
 /**
  * Controls the Mastermind game mechanics

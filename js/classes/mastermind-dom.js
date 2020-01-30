@@ -1,4 +1,4 @@
-import Modal from './modal';
+import Modal from './modal.js';
 
 /**
  * Displays the interface elements of the game
