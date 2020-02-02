@@ -124,45 +124,63 @@ export default class Mastermind {
     /**
      * Get the amount of red and
      * white hint pegs to give
-     * @param {array} rowColors
+     * @param {array} colors
      * @return {object}
      */
-    getKeyPegHintColors(rowColors) {
-        // avoid changing the rowColors variable
-        const colors = rowColors.slice(0);
-
+    getKeyPegHintColors(colors) {
         const pegHints = {
             red: 0,
             white: 0,
         };
 
-        const incorrectPositions = [];
-        const colorsNotGuessed = [];
+        const colorOccurences = this.getColorOccurences(colors);
 
         for (let i = 0; i < colors.length; i++) {
+            const colorOccurence = colorOccurences[colors[i]] || 0;
+
             if (this.codeToGuess[i] === colors[i]) {
-                colors[i] = null;
                 pegHints.red++;
-            } else {
-                incorrectPositions.push(i);
-                colorsNotGuessed.push(this.codeToGuess[i]);
-            }
-        }
 
-        for (let i = 0; i < colors.length; i++) {
-            const isInWrongPlace = colorsNotGuessed.includes(colors[i]);
-
-            if (incorrectPositions.includes(i) && isInWrongPlace) {
+                // if colorOccurence is below 1 with a red peg to award,
+                // it means the white peg count is too high
+                if (colorOccurence < 1) {
+                    pegHints.white--;
+                }
+            } else if (colorOccurence > 0) {
                 pegHints.white++;
-
-                // delete the color, to ensure white key
-                // pegs are not awarded for one color twice
-                const index = colorsNotGuessed.indexOf(colors[i]);
-                colorsNotGuessed.splice(index, 1);
             }
+
+            colorOccurences[colors[i]]--;
         }
 
         return pegHints;
+    }
+
+    /**
+     * Return how many times a color
+     * occurs in the given array
+     * @param {array} colors
+     * @return {object}
+     */
+    getColorOccurences(colors) {
+        // avoid changing the colors variable
+        colors = this.codeToGuess.slice(0);
+        colors.sort();
+
+        const colorOccurences = {};
+        let previousColor;
+
+        for (let i = 0; i < colors.length; i++) {
+            if (previousColor !== colors[i]) {
+                colorOccurences[colors[i]] = 1;
+            } else {
+                colorOccurences[colors[i]]++;
+            }
+
+            previousColor = colors[i];
+        }
+
+        return colorOccurences;
     }
 
     /**
