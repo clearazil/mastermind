@@ -15,6 +15,21 @@ export default class MastermindDom {
     };
     _confirmButton;
     _currentRowId = 1;
+    _isGameFinished = false;
+
+    /**
+     * @return {bool}
+     */
+    get isGameFinished() {
+        return this._isGameFinished;
+    }
+
+    /**
+     * @param {bool} isGameFinished
+     */
+    set isGameFinished(isGameFinished) {
+        this._isGameFinished = isGameFinished;
+    }
 
     /**
      * @return {Modal}
@@ -114,6 +129,7 @@ export default class MastermindDom {
     createNewBoard(maxRows) {
         const html = this.generateHtml(maxRows);
         this.appendBoardHtml(html);
+        this.setColorRowState(this.currentRow, 'active');
 
         this.addChangeColorEvent();
         this.addConfirmNewColorEvent();
@@ -177,7 +193,7 @@ export default class MastermindDom {
         document.addEventListener('click', (event) => {
             const button = event.target;
 
-            if (button && button.parentElement) {
+            if (!this.isGameFinished && button && button.parentElement) {
                 const buttonRowId = button.
                     parentElement.getAttribute('data-row-id');
 
@@ -226,10 +242,20 @@ export default class MastermindDom {
     }
 
     /**
+     * Actions to take before
+     * advancing to the next row
+     */
+    prepareForNextRow() {
+        this.removeConfirmButton();
+        this.setColorRowState(this.currentRow, 'inactive');
+    }
+
+    /**
      * @param {int} rowId
      */
     advanceToNextRow(rowId) {
         this.currentRowId = rowId;
+        this.setColorRowState(this.currentRow, 'active');
 
         const colorButtons = this.currentRow.
             querySelectorAll('.game-board-colors, .game-output-colors');
@@ -241,6 +267,30 @@ export default class MastermindDom {
         this.currentRow.appendChild(
             this.confirmButton,
         );
+    }
+
+    /**
+     * Set a row active to display a pointer
+     * cursor, or inactive for a regular
+     * @param {HTMLElement} row
+     * @param {string} state
+     */
+    setColorRowState(row, state) {
+        const buttons = row.querySelectorAll('.game-board-colors');
+
+        buttons.forEach((button) => {
+            const buttonClass = button.getAttribute('class');
+
+            if (state === 'active') {
+                button.setAttribute(
+                    'class', buttonClass + ' active',
+                );
+            } else if (state === 'inactive') {
+                button.setAttribute(
+                    'class', buttonClass.replace('active', ''),
+                );
+            }
+        });
     }
 
     /**

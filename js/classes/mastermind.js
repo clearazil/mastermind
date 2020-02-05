@@ -105,12 +105,13 @@ export default class Mastermind {
 
         if (this.isColorsValid(colors)) {
             this.dom.displayKeyPegs(this.getKeyPegHintColors(colors));
+            this.dom.prepareForNextRow();
 
             if (this.isCorrectGuess(colors)) {
-                this.dom.removeConfirmButton();
+                this.dom.isGameFinished = true;
                 this.dom.displayGameWonMessage();
             } else if (this.currentRowId === this.maxRows) {
-                this.dom.removeConfirmButton();
+                this.dom.isGameFinished = true;
                 this.dom.displayGameLostMessage(this.codeToGuess);
             } else {
                 this.currentRowId++;

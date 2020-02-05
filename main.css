@@ -37,8 +37,10 @@
 }
 
 /** TODO: only do this for the current row */
-.game-colors span:hover,
-.game-colors span:focus {
+#select-colors span:hover,
+#select-colors span:focus,
+.game-colors .active:hover,
+.game-colors .active:focus {
     text-decoration: none;
     cursor: pointer;
 }
